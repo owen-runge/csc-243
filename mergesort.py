@@ -1,10 +1,7 @@
 # mergesort
 
-from random import randint
-
-#global
-lst = [5,3,1,2,8,4,7,6]
 comps = 0
+merge_step = 1
 
 def mergesort(lst):
     
@@ -21,15 +18,20 @@ def mergesort(lst):
     left_lst = mergesort(lst[:midpoint])
     right_lst = mergesort(lst[midpoint:])
 
+    global merge_step
+    print("MERGE STEP", merge_step, ": ", left_lst + right_lst)
+    merge_step += 1
+
     return merge(left_lst, right_lst)
 
 
 def merge(left, right):
+
     new_lst = []
-    k = l = 0
+    k, l = 0, 0
 
     while k < len(left) and l < len(right):
-        if left[k] < left[l]:
+        if left[k] < right[l]:
             new_lst.append(left[k])
             k += 1
         else:
@@ -40,11 +42,16 @@ def merge(left, right):
 
     new_lst.extend(left[k:])
     new_lst.extend(right[l:])
+#    global merge_step
+#    print("MERGE STEP", merge_step, ": ", new_lst)
+#    merge_step += 1
     return new_lst
 
 
 #outputs
-sorted_lst = mergesort(lst)
-print("INPUT: ", lst, " LENGTH: ", len(lst))
-print("OUTPUT: ", sorted_lst)
+lst = [5,3,1,2,8,4,7,6,9]
 
+print("INPUT: ", lst, " LENGTH: ", len(lst))
+sorted_lst = mergesort(lst)
+print("OUTPUT: ", sorted_lst)
+print("COMPARISONS: ", comps)
