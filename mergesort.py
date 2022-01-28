@@ -2,6 +2,7 @@
 
 # imports
 from math import log2, ceil
+from random import randint
 
 comps = 0
 merge_step = 1
@@ -9,14 +10,14 @@ depth = 0
 # create a dict that will store all the merge steps
 step_dict = {}
 
+# mergesort algorithm
+# takes in a list and a depth
+# sorts the list and returns it
+# branches to a separate function "merge" to merge and sort sublists
 def mergesort(lst,depth):
-    # import pdb
-    # pdb.set_trace()
+
     # list length
     lst_len = len(lst)
-
-    # formatting the dictionary
-    # format_dict(lst)
 
     # base case
     if lst_len == 1:
@@ -31,9 +32,8 @@ def mergesort(lst,depth):
     left_lst = mergesort(lst[:midpoint],depth)
     right_lst = mergesort(lst[midpoint:],depth)
     
-    # extend step_dict with the left and right lists
-    # step_dict[full_lst_depth - depth + 1].append(left_lst)
-    # step_dict[full_lst_depth - depth + 1].append(right_lst)
+    # append left and right lists to step_dict
+    # using a try, except to format step_dict with appropriate merge step numbers
     try:
         step_dict[depth].append(left_lst)
         step_dict[depth].append(right_lst)
@@ -44,24 +44,26 @@ def mergesort(lst,depth):
 
     return merge(left_lst, right_lst)
 
-
+# merge function
+# this function takes in two lists (left and right) and merges them to create one sorted list
+# this merge function uses the iterative method
 def merge(left, right):
 
-    new_lst = []
-    k, l = 0, 0
+    new_lst = []                        # new list to return
+    k, l = 0, 0                         # pointers for left and right lists (k -> left, l -> right)
 
     while k < len(left) and l < len(right):
         if left[k] < right[l]:
             new_lst.append(left[k])
-            k += 1
+            k += 1                      # updates the pointer for the left list if the left list val is smaller than the right list val
         else:
             new_lst.append(right[l])
-            l += 1
-        global comps
-        comps += 1
+            l += 1                      # updates the pointer for the right list if the right list val is smaller than the left list val
+        global comps                    # global variable comps
+        comps += 1                      # keeps track of the number of comparisons throughout the entire sorting algorithm
 
-    new_lst.extend(left[k:])
-    new_lst.extend(right[l:])
+    new_lst.extend(left[k:])            # extends the new list with all remaining values of the left list 
+    new_lst.extend(right[l:])           # extends the new list with all the remaining values of the right list
 
     return new_lst
 
@@ -81,21 +83,23 @@ def format_dict(lst):
     for i in range(1,tree_height+1):
         step_dict[i] = []
 
-# # function to find the tree height
-# def find_height(lst, len):
 
-#     # find tree height using log2 and ceiling
-#     tree_height = ceil(log2(len))
+# outputs
+lst = []
 
-#     return tree_height
+# list sorted from 50-1
+for i in range(50,0,-1):
+    lst.append(i)
 
-#outputs
-# lst = [5,3,1,2,8,4,7,6,9]
-lst = [50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1]
+# list sorted from 1-50
+# for i in range(1, 51):
+#     lst.append(i)
+
+# list of 50 random ints (bounds 0-100)
+# for i in range(1, 51):
+#     lst.append(randint(0,100))
 
 print("INPUT: ", lst, " LENGTH: ", len(lst))
-# format_dict(lst)
-# print(step_dict)
 
 # find length of the full list
 full_lst_len = len(lst)
