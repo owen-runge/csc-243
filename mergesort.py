@@ -87,6 +87,9 @@ def format_dict(lst):
 # outputs
 lst = []
 
+# test list
+# lst = [3,7,1,4,6,2,5]
+
 # list sorted from 50-1
 for i in range(50,0,-1):
     lst.append(i)
