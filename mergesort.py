@@ -23,7 +23,7 @@ def mergesort(lst,depth):
     if lst_len == 1:
         return lst
     # finding midpoint
-    midpoint = lst_len // 2
+    midpoint = ceil(lst_len / 2)
 
     #update depth
     depth += 1
@@ -88,11 +88,11 @@ def format_dict(lst):
 lst = []
 
 # test list
-# lst = [3,7,1,4,6,2,5]
+lst = [3,7,1,4,6,2,5]
 
 # list sorted from 50-1
-for i in range(50,0,-1):
-    lst.append(i)
+# for i in range(50,0,-1):
+#     lst.append(i)
 
 # list sorted from 1-50
 # for i in range(1, 51):
